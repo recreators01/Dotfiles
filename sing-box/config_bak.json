@@ -1,0 +1,268 @@
+{
+  "log": {
+    "disabled": true,
+    "level": "info",
+    "output": "singbox.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "hosts",
+        "tag": "hosts",
+        "predefined": {
+          "doh.pub": [
+            "1.12.12.12",
+            "120.53.53.53",
+            "2402:4e00::"
+          ],
+          "dns.alidns.com": [
+            "223.5.5.5",
+            "223.6.6.6",
+            "2400:3200::1",
+            "2400:3200:baba::1"
+          ],
+          "dns.google": [
+            "8.8.8.8",
+            "8.8.4.4",
+            "2001:4860:4860::8888",
+            "2001:4860:4860::8844"
+          ],
+          "cloudflare-dns.com": [
+            "1.1.1.1",
+            "1.0.0.1",
+            "2606:4700:4700::1111",
+            "2606:4700:4700::1001"
+          ]
+        }
+      },
+      {
+        "type": "https",
+        "tag": "dns_proxy",
+        "detour": "🚀 节点选择",
+        "domain_resolver": "hosts",
+        "server": "cloudflare-dns.com"
+      },
+      {
+        "type": "https",
+        "tag": "dns_direct",
+        "domain_resolver": "hosts",
+        "server": "doh.pub"
+      },
+      {
+        "type": "fakeip",
+        "tag": "dns_fakeip",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "Direct",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "category-games@cn",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "AWAvenue-Ads",
+        "action": "reject"
+      },
+      {
+        "rule_set": "cn-domain",
+        "server": "dns_direct"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "dns_fakeip"
+      }
+    ],
+    "final": "dns_proxy",
+    "strategy": "prefer_ipv4",
+    "independent_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 7890
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "🚀 节点选择",
+      "outbounds": [
+        "🇺🇸 美国节点",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
+        "🇯🇵 日本节点",
+        "🇸🇬 新加坡节点"
+      ],
+      "providers": null,
+      "default": "🇺🇸 美国节点",
+      "interrupt_exist_connections": true
+    },
+    {
+      "type": "urltest",
+      "tag": "🇭🇰 香港节点",
+      "outbounds": null,
+      "providers": [
+        "🛫 机场订阅"
+      ],
+      "include": "(?i)(🇭🇰|港|hk|hongkong|hong kong)"
+    },
+    {
+      "type": "urltest",
+      "tag": "🇹🇼 台湾节点",
+      "outbounds": null,
+      "providers": [
+        "🛫 机场订阅"
+      ],
+      "include": "(?i)(🇹🇼|台|tw|taiwan|tai wan)"
+    },
+    {
+      "type": "urltest",
+      "tag": "🇯🇵 日本节点",
+      "outbounds": null,
+      "providers": [
+        "🛫 机场订阅"
+      ],
+      "include": "(?i)(🇯🇵|日|jp|japan)"
+    },
+    {
+      "type": "urltest",
+      "tag": "🇸🇬 新加坡节点",
+      "outbounds": null,
+      "providers": [
+        "🛫 机场订阅"
+      ],
+      "include": "(?i)(🇸🇬|新|sg|singapore)"
+    },
+    {
+      "type": "urltest",
+      "tag": "🇺🇸 美国节点",
+      "outbounds": null,
+      "providers": [
+        "🛫 机场订阅"
+      ],
+      "include": "(?i)(🇺🇸|美|us|unitedstates|united states)"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ],
+  "providers": [
+    {
+      "type": "remote",
+      "tag": "🛫 机场订阅",
+      "url": "",
+      "update_interval": "24h0m0s"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "action": "sniff"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "category-games@cn",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "AWAvenue-Ads",
+        "action": "reject"
+      },
+      {
+        "rule_set": "cn-domain",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "cn-ip",
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "AWAvenue-Ads",
+        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
+        "download_detour": "🚀 节点选择",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "category-games@cn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-games@cn.srs",
+        "download_detour": "🚀 节点选择",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geolocation-!cn",
+        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-geolocation-!cn.srs",
+        "download_detour": "🚀 节点选择",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "cn-domain",
+        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-cn.srs",
+        "download_detour": "🚀 节点选择",
+        "update_interval": "24h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "cn-ip",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "download_detour": "🚀 节点选择",
+        "update_interval": "240h0m0s"
+      }
+    ],
+    "final": "🚀 节点选择",
+    "find_process": true,
+    "auto_detect_interface": true,
+    "default_domain_resolver": "dns_direct"
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "zashboard",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "🚀 节点选择",
+      "default_mode": "Rule"
+    }
+  }
+}
+

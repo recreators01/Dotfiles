@@ -1,2 +1,4 @@
 [Default Applications]
-
+application/x-terminal-emulator=foot.desktop
+inode/directory=yazi.desktop
+x-scheme-handler/terminal=foot.desktop

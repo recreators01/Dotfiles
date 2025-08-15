@@ -8,46 +8,19 @@
   "dns": {
     "servers": [
       {
-        "type": "hosts",
-        "tag": "hosts",
-        "predefined": {
-          "doh.pub": [
-            "1.12.12.12",
-            "120.53.53.53",
-            "2402:4e00::"
-          ],
-          "dns.alidns.com": [
-            "223.5.5.5",
-            "223.6.6.6",
-            "2400:3200::1",
-            "2400:3200:baba::1"
-          ],
-          "dns.google": [
-            "8.8.8.8",
-            "8.8.4.4",
-            "2001:4860:4860::8888",
-            "2001:4860:4860::8844"
-          ],
-          "cloudflare-dns.com": [
-            "1.1.1.1",
-            "1.0.0.1",
-            "2606:4700:4700::1111",
-            "2606:4700:4700::1001"
-          ]
-        }
+        "type": "local",
+        "tag": "dns_local"
       },
       {
-        "type": "https",
+        "type": "tls",
         "tag": "dns_proxy",
-        "detour": "🚀 节点选择",
-        "domain_resolver": "hosts",
-        "server": "cloudflare-dns.com"
+        "server": "1.1.1.1"
       },
       {
-        "type": "https",
+        "type": "tls",
         "tag": "dns_direct",
-        "domain_resolver": "hosts",
-        "server": "doh.pub"
+        "domain_resolver": "dns_local",
+        "server": "dot.pub"
       },
       {
         "type": "fakeip",
@@ -62,15 +35,23 @@
         "server": "dns_direct"
       },
       {
-        "rule_set": "category-games@cn",
-        "server": "dns_direct"
+        "clash_mode": "Global",
+        "server": "dns_proxy"
       },
       {
-        "rule_set": "AWAvenue-Ads",
+        "rule_set": "ads",
         "action": "reject"
       },
       {
-        "rule_set": "cn-domain",
+        "rule_set": "cn",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "proxy",
+        "server": "dns_fakeip"
+      },
+      {
+        "rule_set": "cnip",
         "server": "dns_direct"
       },
       {
@@ -82,6 +63,7 @@
       }
     ],
     "final": "dns_proxy",
+    "reverse_mapping": true,
     "strategy": "prefer_ipv4",
     "independent_cache": true
   },
@@ -91,6 +73,15 @@
       "tag": "mixed-in",
       "listen": "0.0.0.0",
       "listen_port": 7890
+    },
+    {
+      "type": "tun",
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "auto_route": true,
+      "strict_route": true
     }
   ],
   "outbounds": [
@@ -104,9 +95,163 @@
         "🇯🇵 日本节点",
         "🇸🇬 新加坡节点"
       ],
-      "providers": null,
-      "default": "🇺🇸 美国节点",
-      "interrupt_exist_connections": true
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "📈 网络测试",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
+        "🇯🇵 日本节点",
+        "🇸🇬 新加坡节点",
+        "🇺🇸 美国节点"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🤖 人工智能",
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
+        "🇯🇵 日本节点",
+        "🇸🇬 新加坡节点",
+        "🇺🇸 美国节点"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "📋 Trackerslist",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🎮 游戏服务",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🪟 微软服务",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🇬 谷歌服务",
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🍎 苹果服务",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🛡️ 直连域名",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🀄️ 直连 IP",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🧱 代理域名",
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "📲 电报消息",
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
+        "🇯🇵 日本节点",
+        "🇸🇬 新加坡节点",
+        "🇺🇸 美国节点"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🐟 漏网之鱼",
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
+        "🇯🇵 日本节点",
+        "🇸🇬 新加坡节点",
+        "🇺🇸 美国节点",
+        "🎯 全球直连"
+      ],
+      "providers": null
+    },
+    {
+      "type": "selector",
+      "tag": "🎯 全球直连",
+      "outbounds": [
+        "DIRECT"
+      ],
+      "providers": null
+    },
+    {
+      "type": "block",
+      "tag": "REJECT"
+    },
+    {
+      "type": "direct",
+      "tag": "DIRECT"
+    },
+    {
+      "type": "selector",
+      "tag": "GLOBAL",
+      "outbounds": [
+        "DIRECT",
+        "REJECT",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
+        "🇯🇵 日本节点",
+        "🇸🇬 新加坡节点",
+        "🇺🇸 美国节点"
+      ],
+      "providers": null
     },
     {
       "type": "urltest",
@@ -152,10 +297,6 @@
         "🛫 机场订阅"
       ],
       "include": "(?i)(🇺🇸|美|us|unitedstates|united states)"
-    },
-    {
-      "type": "direct",
-      "tag": "direct"
     }
   ],
   "providers": [
@@ -176,91 +317,174 @@
         "mode": "or",
         "rules": [
           {
-            "port": 53
+            "protocol": "dns"
           },
           {
-            "protocol": "dns"
+            "port": 53
           }
         ],
         "action": "hijack-dns"
       },
       {
         "clash_mode": "Direct",
-        "outbound": "direct"
+        "outbound": "DIRECT"
       },
       {
-        "rule_set": "category-games@cn",
-        "outbound": "direct"
+        "clash_mode": "Global",
+        "outbound": "GLOBAL"
       },
       {
-        "rule_set": "AWAvenue-Ads",
+        "rule_set": "private",
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "rule_set": "ads",
         "action": "reject"
       },
       {
-        "rule_set": "cn-domain",
-        "outbound": "direct"
+        "rule_set": "trackerslist",
+        "outbound": "📋 Trackerslist"
       },
       {
-        "rule_set": "cn-ip",
-        "outbound": "direct"
+        "rule_set": "applications",
+        "outbound": "🎯 全球直连"
       },
       {
-        "ip_is_private": true,
-        "outbound": "direct"
+        "rule_set": "microsoft-cn",
+        "outbound": "🪟 微软服务"
+      },
+      {
+        "rule_set": "apple-cn",
+        "outbound": "🍎 苹果服务"
+      },
+      {
+        "rule_set": "google-cn",
+        "outbound": "🇬 谷歌服务"
+      },
+      {
+        "rule_set": "games-cn",
+        "outbound": "🎮 游戏服务"
+      },
+      {
+        "rule_set": "ai",
+        "outbound": "🤖 人工智能"
+      },
+      {
+        "rule_set": "networktest",
+        "outbound": "📈 网络测试"
+      },
+      {
+        "rule_set": "proxy",
+        "outbound": "🧱 代理域名"
+      },
+      {
+        "rule_set": "cn",
+        "outbound": "🛡️ 直连域名"
+      },
+      {
+        "rule_set": "privateip",
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "rule_set": "cnip",
+        "outbound": "🀄️ 直连 IP"
+      },
+      {
+        "rule_set": "telegramip",
+        "outbound": "📲 电报消息"
       }
     ],
     "rule_set": [
       {
         "type": "remote",
-        "tag": "AWAvenue-Ads",
-        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
-        "download_detour": "🚀 节点选择",
-        "update_interval": "24h0m0s"
+        "tag": "ads",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/ads.srs"
       },
       {
         "type": "remote",
-        "tag": "category-games@cn",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-games@cn.srs",
-        "download_detour": "🚀 节点选择",
-        "update_interval": "24h0m0s"
+        "tag": "private",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/private.srs"
       },
       {
         "type": "remote",
-        "tag": "geolocation-!cn",
-        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-geolocation-!cn.srs",
-        "download_detour": "🚀 节点选择",
-        "update_interval": "24h0m0s"
+        "tag": "trackerslist",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/trackerslist.srs"
       },
       {
         "type": "remote",
-        "tag": "cn-domain",
-        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-cn.srs",
-        "download_detour": "🚀 节点选择",
-        "update_interval": "24h0m0s"
+        "tag": "applications",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/applications.srs"
       },
       {
         "type": "remote",
-        "tag": "cn-ip",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
-        "download_detour": "🚀 节点选择",
-        "update_interval": "240h0m0s"
+        "tag": "microsoft-cn",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/microsoft-cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "apple-cn",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/apple-cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "google-cn",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/google-cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "games-cn",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "ai",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/ai.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "networktest",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/networktest.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "proxy",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/proxy.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "cn",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "privateip",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/privateip.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "cnip",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "telegramip",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/telegramip.srs"
       }
     ],
     "final": "🚀 节点选择",
-    "find_process": true,
     "auto_detect_interface": true,
     "default_domain_resolver": "dns_direct"
   },
   "experimental": {
     "cache_file": {
       "enabled": true,
-      "store_fakeip": true
+      "store_rdrc": true
     },
     "clash_api": {
       "external_controller": "127.0.0.1:9090",
       "external_ui": "zashboard",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "🚀 节点选择",
+      "secret": "recre",
       "default_mode": "Rule"
     }
   }

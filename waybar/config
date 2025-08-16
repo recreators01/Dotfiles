@@ -10,10 +10,9 @@
 "position": "top",
 "spacing": 3,
 "fixed-center": true,
-"ipc": false,
 "margin-top": 3,
-"margin-left": 8,
-"margin-right": 8,
+"margin-left": 5,
+"margin-right": 5,
 
 
 

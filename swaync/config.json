@@ -59,11 +59,11 @@
           "actions": [
               {
                   "label": "󰐥",
-                  "command": "bash -c $HOME/.config/hypr/scripts/Wlogout.sh"
+                  "command": "systemctl poweroff"
               },
               {
                   "label": "󰌾",
-                  "command": "bash -c $HOME/.config/hypr/scripts/hyprlock.sh"
+                  "command": "systemctl suspend"
               },
               {
                   "label": "󰍃",
@@ -71,11 +71,11 @@
               },
               {
                   "label": "󰀝",
-                  "command": "bash -c $HOME/.config/hypr/scripts/AirplaneMode.sh"
+                  "command": ""
               },
               {
                   "label": "󰝟",
-                  "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+                  "command": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
               }
           ]

@@ -2,13 +2,7 @@
 
 /* My Mostly Used waybar config incase you wonder :) */
 {
-"include": [
-  "$HOME/.config/waybar/Modules",
-  "$HOME/.config/waybar/ModulesWorkspaces",
-  "$HOME/.config/waybar/ModulesCustom",
-  "$HOME/.config/waybar/ModulesGroups",
-  "$HOME/.config/waybar/UserModules",
-  ],
+
 "layer": "bottom",
 //"mode": "dock",
 "exclusive": true,
@@ -16,35 +10,218 @@
 "position": "top",
 "spacing": 3,
 "fixed-center": true,
-"ipc": true,
+"ipc": false,
 "margin-top": 3,
 "margin-left": 8,
 "margin-right": 8,
 
+
+
 "modules-left": [
-	"clock",
-	"custom/separator#blank",
-	"tray",
+	"hyprland/workspaces",
 	],
 
 "modules-center": [
-	"group/app_drawer",
-	"custom/separator#dot-line",
-	"hyprland/workspaces#kanji",
-	"custom/separator#dot-line",
-	"group/notify",	
+        "wlr/taskbar"
 	],
 
 "modules-right": [
-        //"mpris",
-        //"custom/separator#dot-line",
-	"group/laptop",
-	"custom/separator#blank",
-	"group/mobo_drawer",
-	"custom/separator#line",  
-	"group/audio",
+	"tray",
+	"custom/separator#line",
+	"network",
+	"bluetooth",
+	"pulseaudio",
+	"backlight",
+	"battery",
+	"clock",
 	"custom/separator#dot-line",
-	"custom/separator#blank", 
-	"group/status",
+	"custom/swaync",
+	"custom/separator#dot-line",
+	"idle_inhibitor"
 	],
+
+
+
+
+"hyprland/workspaces": {
+	"active-only": false,
+	"all-outputs": true,
+	"format": "{icon}",
+	"on-click": "activate",
+	"on-scroll-up": "hyprctl dispatch workspace e+1",
+	"on-scroll-down": "hyprctl dispatch workspace e-1",
+	"show-special": false,
+    "persistent-workspaces": {
+      "*": 5
+	},
+	"format": "{icon}",
+	"format-icons": {
+            "active": "<span font='12'>󰮯</span>",
+            "empty": "<span font='8'></span>",
+            "default": "󰊠",
+	},
+},
+
+"wlr/taskbar": {
+	"format": "{icon} {name}",
+	"icon-size": 16,
+	"all-outputs": false,
+	"tooltip-format": "{title}",
+	"on-click": "activate",
+	"on-click-middle": "close"
+},
+
+
+"tray": {
+	"icon-size": 20,
+	"spacing": 4,
+},
+
+
+"network": {
+	"format-wifi": "{icon}",
+	"format-ethernet": "󰌘",
+	"format-disconnected": "󰌙",
+	"tooltip-format": "{ifname} {ipaddr}",
+	"tooltip-format-wifi": "{essid} {ipaddr}",
+	"tooltip-format-disconnected": "󰌙 Disconnected",
+	"max-length": 30,
+	"format-icons": [
+		"󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+	]
+},
+
+"bluetooth": {
+	"format": "",
+	"format-on": " ",
+	"format-connected": " {device_alias}",
+        "format-connected-battery": " {device_battery_percentage}%",
+	"tooltip-format": " {device_alias}",
+	"tooltip-format-connected": "{device_enumerate}",
+	"tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
+},
+
+"pulseaudio": {
+        "max-volume": 100,
+        "scroll-step": 1,
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": " ",
+        "format-icons": {
+            "headphone": "",
+            "default": [
+		"", "", "󰕾", ""
+            ]
+        },
+        "on-click": "pwvucontrol"
+},
+
+"backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["","","","","","","","","","","","","","",""],
+        "scroll-step": 1,
+        "tooltip": false,
+},
+
+"battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {capacity}%",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
+},
+
+
+
+
+
+"clock": {
+	"interval": 1,
+    //"format": " {:%I:%M %p}", // AM PM format
+	"format": " {:%H:%M}",// 24H
+	"format-alt": " {:%H:%M   %Y, %d %B, %A}",
+	"tooltip-format": "<tt><small>{calendar}</small></tt>",
+	"calendar": {
+		"mode": "year",
+		"mode-mon-col": 3,
+		"weeks-pos": "right",
+		"on-scroll": 1,
+		"format": {
+			"months": "<span color='#ffead3'><b>{}</b></span>",
+			"days": "<span color='#ecc6d9'><b>{}</b></span>",
+			"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+			"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+			"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+	}
+},
+
+
+
+"custom/swaync": {
+	"tooltip": true,
+	"tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
+	"format": "{} {icon} ",
+	"format-icons": {
+		"notification": "<span foreground='red'><sup></sup></span>",
+		"none": "",
+		"dnd-notification": "<span foreground='red'><sup></sup></span>",
+		"dnd-none": "",
+		"inhibited-notification": "<span foreground='red'><sup></sup></span>",
+		"inhibited-none": "",
+		"dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+		"dnd-inhibited-none": ""
+	},
+	"return-type": "json",
+	"exec-if": "which swaync-client",
+	"exec": "swaync-client -swb",
+	"on-click": "sleep 0.1 && swaync-client -t -sw",
+	"on-click-right": "swaync-client -d -sw",
+	"escape": true,
+},
+
+"idle_inhibitor": {
+	"tooltip-format-activated": "Idle_inhibitor active",
+	"tooltip-format-deactivated": "Idle_inhibitor not active",
+	"format": "{icon}",
+	"format-icons": {
+		"activated": " ",
+		"deactivated": " ",
+	}
+},
+
+
+
+
+"custom/separator#dot-line": {
+	"format": "",
+	"interval": "once",
+	"tooltip": false
+},
+"custom/separator#line": {
+	"format": "|",
+	"interval": "once",
+	"tooltip": false
+},
+
+
+
 }

@@ -1,8 +1,8 @@
-@define-color text            @foreground;
-@define-color background-alt  @color1;
-@define-color selected        @color3;
-@define-color hover           @color5;
-@define-color urgent          @color2;
+@define-color text            @inverse_surface;
+@define-color background-alt  @background;
+@define-color selected        @on_secondary;
+@define-color hover           @on_secondary_fixed_variant;
+@define-color urgent          @on_secondary_fixed;
 
 * {
 
@@ -16,7 +16,7 @@
 
   all: unset;
   font-size: 14px;
-  font-family: "JetBrains Mono Nerd Font 10";
+  font-family: "JetBrains Mono Nerd Font";
   transition: 200ms;
 
 }
@@ -28,7 +28,7 @@
 }
 
 .floating-notifications.background .notification-row .notification-background {
-  background: alpha(@background, .55);
+  background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 8px 0 rgba(0,0,0,.6);
   border: 1px solid @selected;
   border-radius: 24px;
@@ -72,6 +72,7 @@
 
 .image {
   margin: 10px 20px 10px 0px;
+  border-radius: 10px;
 }
 
 .summary {
@@ -101,11 +102,11 @@
 }
 
 .notification.critical progress {
-  background-color: @selected;
+  background-color: @error;
 }
 
 .notification.low progress,
 .notification.normal progress {
-  background-color: @selected;
+  background-color: @hover;
 }
 

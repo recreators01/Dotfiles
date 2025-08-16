@@ -17,34 +17,33 @@
 "spacing": 3,
 "fixed-center": true,
 "ipc": true,
-"margin-top": 3,
+"margin-top": 5,
 "margin-left": 8,
 "margin-right": 8,
 
 "modules-left": [
+	//"idle_inhibitor",
+	//"custom/separator#blank",
 	"clock",
-	"custom/separator#blank",
+        "custom/separator#dot-blank",	
 	"tray",
+        "custom/separator#blank",	
+        "hyprland/workspaces#alpha",
 	],
 
 "modules-center": [
-	"group/app_drawer",
-	"custom/separator#dot-line",
-	"hyprland/workspaces#kanji",
-	"custom/separator#dot-line",
-	"group/notify",	
+        "hyprland/window",
 	],
 
 "modules-right": [
         //"mpris",
         //"custom/separator#dot-line",
-	"group/laptop",
-	"custom/separator#blank",
-	"group/mobo_drawer",
-	"custom/separator#line",  
+        "group/notify",	
+	"battery",
+	"custom/separator#blank",  
 	"group/audio",
-	"custom/separator#dot-line",
-	"custom/separator#blank", 
-	"group/status",
+	"custom/separator#blank",
+	"custom/power",
 	],
 }
+

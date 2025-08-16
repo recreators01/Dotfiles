@@ -9,16 +9,19 @@
 	font-weight: bold;
 	min-height: 0;
 	/* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-	font-size: 98%;
+	font-size: 100%;
 	font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
 window#waybar,
 window#waybar.empty,
 window#waybar.empty #window {
-    background-color: transparent;
-    padding: 0px;
-    border: 0px;
+    background-color: alpha(@background, .70);
+    	border-radius: 0px;
+	  margin-top: 0px;
+    	margin-bottom: 0px;
+	  margin-right: 0px;
+	  margin-left: 0px;
 }
 
 tooltip {
@@ -32,11 +35,11 @@ tooltip label{
 }
 /*-----module groups----*/
 .modules-right {
-	background-color: rgba(0,0,0,0.5);
+/*	background-color: rgba(0,0,0,0.5);*/
 	color: @secondary;
-	border-bottom: 0px;
+/*	border-bottom: 0px;
 	border-style: solid;
-	border-color: white;
+	border-color: white;*/
 	border-radius: 20px;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -44,11 +47,11 @@ tooltip label{
 	padding-left: 4px;
 }
 .modules-center {
-	background-color: rgba(0,0,0,0.5);
+/*	background-color: rgba(0,0,0,0.5);*/
 	color: @secondary;
-	border-bottom: 0px;
+/*	border-bottom: 0px;
 	border-style: solid;
-	border-color: white;
+	border-color: white;*/
 	border-radius: 20px;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -56,11 +59,11 @@ tooltip label{
 	padding-left: 4px;
 }
 .modules-left {
-	background-color: rgba(0,0,0,0.5);
+/*	background-color: rgba(0,0,0,0.5);*/
 	color: @secondary;
-	border-bottom: 0px;
+/*	border-bottom: 0px;
 	border-style: solid;
-	border-color: white;
+	border-color: white;*/
 	border-radius: 20px;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -72,14 +75,17 @@ tooltip label{
 #workspaces button {
 	color: @outline;
     box-shadow: none;
-	text-shadow: none;
-    padding: 0px;
+	  text-shadow: none;
+	  padding: 0px;
+	  padding-bottom: 0px;
+	  padding-top: 1px;
     border-radius: 9px;
     padding-left: 4px;
     padding-right: 4px;
     animation: gradient_f 20s ease-in infinite;
     transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
 }
+
 #taskbar button:hover,
 #workspaces button:hover {
     color: @on_secondary_fixed_variant;
@@ -92,7 +98,7 @@ tooltip label{
 
 #taskbar button.active,
 #workspaces button.active {
-	color: @inverse_surface;
+	color: @primary;
     padding-left: 8px;
     padding-right: 8px;
     animation: gradient_f 20s ease-in infinite;

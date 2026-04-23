@@ -1,0 +1,11 @@
+[mgr]
+prepend_keymap = [
+    { on   = "!", for  = "unix", run  = 'shell "$SHELL" --block', desc = "Open $SHELL here" },
+    { on = [ "g", "u" ],       run = "cd /usr",             desc = "Go usr" },
+    { on = [ "g", "e" ],       run = "cd /etc",             desc = "Go etc" },
+    { on = [ "g", "m" ],       run = "cd /mnt",             desc = "Go mnt" },
+]
+[[input.prepend_keymap]]
+on   = "<Esc>"
+run  = "close"
+desc = "Cancel input"

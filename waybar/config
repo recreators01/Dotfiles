@@ -1,10 +1,6 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-
-/* My Mostly Used waybar config incase you wonder :) */
 {
 
 "layer": "bottom",
-//"mode": "dock",
 "exclusive": true,
 "passthrough": false,
 "position": "top",
@@ -17,7 +13,7 @@
 
 
 "modules-left": [
-	"hyprland/workspaces",
+	"hyprland/workspaces"
 	],
 
 "modules-center": [
@@ -50,15 +46,15 @@
 	"on-scroll-up": "hyprctl dispatch workspace e+1",
 	"on-scroll-down": "hyprctl dispatch workspace e-1",
 	"show-special": false,
-    "persistent-workspaces": {
-      "*": 5
+	"persistent-workspaces": {
+	    "*": 5
 	},
 	"format": "{icon}",
 	"format-icons": {
             "active": "<span font='12'>󰮯</span>",
             "empty": "<span font='8'></span>",
-            "default": "󰊠",
-	},
+            "default": "󰊠"
+	}
 },
 
 "wlr/taskbar": {
@@ -73,7 +69,7 @@
 
 "tray": {
 	"icon-size": 20,
-	"spacing": 4,
+	"spacing": 4
 },
 
 
@@ -97,7 +93,7 @@
         "format-connected-battery": " {device_battery_percentage}%",
 	"tooltip-format": " {device_alias}",
 	"tooltip-format-connected": "{device_enumerate}",
-	"tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
+	"tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%"
 },
 
 "pulseaudio": {
@@ -111,8 +107,7 @@
             "default": [
 		"", "", "󰕾", ""
             ]
-        },
-        "on-click": "XDG_CURRENT_DESKTOP=GNOME pavucontrol-qt"
+        }
 },
 
 "backlight": {
@@ -120,7 +115,7 @@
         "format": "{icon} {percent}%",
         "format-icons": ["","","","","","","","","","","","","","",""],
         "scroll-step": 1,
-        "tooltip": false,
+        "tooltip": false
 },
 
 "battery": {
@@ -154,23 +149,9 @@
 
 "clock": {
 	"interval": 1,
-    //"format": " {:%I:%M %p}", // AM PM format
 	"format": " {:%H:%M}",// 24H
 	"format-alt": " {:%H:%M   %Y, %d %B, %A}",
-	"tooltip-format": "<tt><small>{calendar}</small></tt>",
-	"calendar": {
-		"mode": "year",
-		"mode-mon-col": 3,
-		"weeks-pos": "right",
-		"on-scroll": 1,
-		"format": {
-			"months": "<span color='#ffead3'><b>{}</b></span>",
-			"days": "<span color='#ecc6d9'><b>{}</b></span>",
-			"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-			"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-			"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-		}
-	}
+	"tooltip": false
 },
 
 
@@ -180,13 +161,13 @@
 	"tooltip-format": "Left Click: Do not Disturb\nRight Click: History",
 	"format": "{icon}",
 	"format-icons": {
-        "default": "",
-        "do-not-disturb": ""
+	    "default": "",
+	    "do-not-disturb": ""
 	},
-    "interval": "once",
-    "return-type": "json",
-    "exec": "printf '{\"alt\": \"%s\"}\\n' \"$(makoctl mode | tail -n 1)\"",
-    "exec-on-event": true,
+	"interval": "once",
+	"return-type": "json",
+	"exec": "printf '{\"alt\": \"%s\"}\\n' \"$(makoctl mode | tail -n 1)\"",
+	"exec-on-event": true,
 	"on-click": "makoctl mode -t do-not-disturb",
 	"on-click-right": "makoctl restore"
 },
@@ -197,7 +178,7 @@
 	"format": "{icon}",
 	"format-icons": {
 		"activated": " ",
-		"deactivated": " ",
+		"deactivated": " "
 	}
 },
 
@@ -213,7 +194,7 @@
 	"format": "|",
 	"interval": "once",
 	"tooltip": false
-},
+}
 
 
 

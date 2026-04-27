@@ -10,6 +10,11 @@ zstyle :compinstall filename '/home/Fia/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+setopt HIST_SAVE_NO_DUPS # 保持文件历史唯一
+setopt HIST_IGNORE_DUPS  # 忽略运行时连续重复命令
+
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 

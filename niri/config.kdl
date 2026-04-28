@@ -1,0 +1,111 @@
+include "colors.kdl"
+include "binds.kdl"
+
+input {
+    keyboard {
+        numlock
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+
+    disable-power-key-handling
+    warp-mouse-to-focus
+
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+output "eDP-1" {
+    mode "2560x1440@165.003"
+
+    scale 1.5
+
+    transform "normal"
+}
+
+layout {
+    gaps 10
+
+    background-color "transparent"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        off
+    }
+
+    border {
+        width 2
+    }
+
+    shadow {
+        on
+
+        softness 30
+
+        spread 5
+
+        offset x=0 y=5
+
+        color "#0007"
+    }
+    
+    tab-indicator {
+	off
+    }
+
+}
+
+spawn-at-startup "awww-daemon"
+spawn-at-startup "fcitx5" "-d"
+spawn-at-startup "swayidle" "-w"
+spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+
+prefer-no-csd
+
+
+environment {
+    LANG "zh_CN.UTF-8"
+}
+
+cursor {
+    xcursor-size 24
+}
+
+
+
+blur {
+    passes 3
+    offset 3
+    noise 0.02
+    saturation 1.5
+}
+
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+
+// Put wallpaper inside the overview backdrop.
+layer-rule {
+    match namespace="awww-daemon"
+    place-within-backdrop true
+}
+
+
+window-rule {
+    geometry-corner-radius 10
+    clip-to-geometry true
+}

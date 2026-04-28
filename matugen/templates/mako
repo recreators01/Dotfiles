@@ -1,13 +1,10 @@
-max-history=10
-
-background-color={{colors.background.default.hex}}80
-text-color={{colors.inverse_surface.default.hex}}
-border-color={{colors.on_secondary.default.hex}}
+background-color={{colors.on_primary.default.hex}}
+text-color={{colors.tertiary.default.hex}}
+border-color={{colors.tertiary_container.default.hex}}
 
 border-radius=10
 
 icon-border-radius=10
-
 
 default-timeout=5000
 

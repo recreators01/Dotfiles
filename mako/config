@@ -1,13 +1,10 @@
-max-history=10
-
-background-color=#0f141780
-text-color=#dee3e6
-border-color=#1e333c
+background-color=#003549
+text-color=#cac1ea
+border-color=#484264
 
 border-radius=10
 
 icon-border-radius=10
-
 
 default-timeout=5000
 

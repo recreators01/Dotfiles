@@ -1,3 +1,3 @@
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-  exec start-hyprland > /dev/null 2>&1
+  exec niri --session > /dev/null 2>&1
 fi

@@ -98,6 +98,11 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 
+xwayland-satellite {
+    off
+}
+
+
 // Put wallpaper inside the overview backdrop.
 layer-rule {
     match namespace="awww-daemon"

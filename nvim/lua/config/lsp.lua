@@ -36,7 +36,7 @@ vim.lsp.codelens.enable(true)
 
 
 --INFO: lsp client enable
-local lsp_clients = { "clangd", "ty" }
+local lsp_clients = { "ty" , "rust_analyzer" }
 for _, lsp in ipairs(lsp_clients) do
     vim.lsp.enable(lsp)
 end

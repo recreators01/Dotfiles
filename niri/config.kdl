@@ -18,11 +18,11 @@ input {
 }
 
 output "eDP-1" {
-    mode "2560x1440@165.003"
+    // mode "2560x1440@165.003"
 
-    scale 1.5
+    // scale 1.5
 
-    transform "normal"
+    // transform "normal"
 }
 
 layout {
